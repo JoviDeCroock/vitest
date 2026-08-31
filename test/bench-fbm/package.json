@@ -1,0 +1,14 @@
+{
+  "name": "@vitest/test-bench-fbm",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "generate": "node generate.mjs",
+    "bench": "node bench.mjs"
+  },
+  "dependencies": {
+    "happy-dom": "^20.11.6",
+    "preact": "^10.24.0",
+    "vitest": "workspace:*"
+  }
+}

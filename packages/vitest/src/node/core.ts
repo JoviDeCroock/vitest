@@ -1039,6 +1039,7 @@ export class Vitest {
           }
 
           await this.initializeGlobalSetup(specs)
+          await this.prepareBundledExecution(specs)
 
           try {
             await this.pool.runTests(specs, invalidates)
@@ -1276,6 +1277,29 @@ export class Vitest {
     }
     for (const project of projects) {
       await project._initializeGlobalSetup()
+    }
+  }
+
+  private async prepareBundledExecution(specs: TestSpecification[]): Promise<void> {
+    const perProject = new Map<TestProject, string[]>()
+    for (const spec of specs) {
+      if (!spec.project.config.experimental.bundledExecution) {
+        continue
+      }
+      if (spec.project.config.pool.startsWith('vm') || spec.project.config.browser.enabled) {
+        throw new Error(`experimental.bundledExecution is not supported with the "${spec.project.config.pool}" pool or browser mode`)
+      }
+      const files = perProject.get(spec.project) ?? []
+      files.push(spec.moduleId)
+      perProject.set(spec.project, files)
+    }
+    for (const [project, files] of perProject) {
+      const { buildBundledTests } = await import('./bundled/build')
+      const result = await buildBundledTests(project, [...new Set(files)])
+      project._bundledEntries = result.entries
+      for (const { file, message } of result.excluded) {
+        this.state.catchError(new Error(`Failed to bundle ${file}: ${message}`), 'Bundle Error')
+      }
     }
   }
 

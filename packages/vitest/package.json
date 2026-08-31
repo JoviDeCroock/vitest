@@ -77,6 +77,10 @@
       "__vitest_source__": "./src/utils/traces.ts",
       "default": "./dist/traces.js"
     },
+    "./internal/bundled-mocks": {
+      "__vitest_source__": "./src/runtime/bundledMockRuntime.ts",
+      "default": "./dist/bundled-mocks.js"
+    },
     "./config": {
       "types": "./config.d.ts",
       "require": "./dist/config.cjs",

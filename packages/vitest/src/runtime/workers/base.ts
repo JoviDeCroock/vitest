@@ -165,6 +165,10 @@ export async function runBaseTests(method: 'run' | 'collect', state: WorkerGloba
     })
   })
 
+  if (ctx.bundledEntries) {
+    (globalThis as any).__vitest_bundled_env__ ??= { ...state.metaEnv }
+  }
+
   const moduleRunner = await startModuleRunner({
     state,
     evaluatedModules: state.evaluatedModules,

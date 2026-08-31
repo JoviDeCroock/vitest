@@ -1004,6 +1004,16 @@ export interface InlineConfig {
      */
     viteModuleRunner?: boolean
     /**
+     * Bundle all test files of a project with a single code-split Vite build
+     * and import the prebuilt chunks natively in workers instead of
+     * transforming modules on demand. Shared modules are evaluated once per
+     * worker realm. `vi.mock` is compiled at bundle time.
+     *
+     * Not supported with `vmThreads`/`vmForks` pools or browser mode.
+     * @default false
+     */
+    bundledExecution?: boolean
+    /**
      * If module runner is disabled, Vitest uses a module loader to transform files to support
      * `import.meta.vitest` and `vi.mock`.
      *

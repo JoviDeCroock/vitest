@@ -28,6 +28,7 @@ const entries = {
   'module-evaluator': 'src/runtime/moduleRunner/moduleEvaluator.ts',
   'nodejs-worker-loader': 'src/runtime/nodejsWorkerLoader.ts',
   'traces': 'src/utils/traces.ts',
+  'bundled-mocks': 'src/runtime/bundledMockRuntime.ts',
 
   // just so that we have a separate chunk, this is not a public api
   'task-utils': 'src/utils/tasks.ts',

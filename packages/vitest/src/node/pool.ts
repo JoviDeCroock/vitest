@@ -164,6 +164,7 @@ export function createPool(ctx: Vitest): ProcessPool {
             providedContext: project.getProvidedContext(),
             workerId: workerId++,
             environment,
+            bundledEntries: project._bundledEntries,
           },
           project,
           env,

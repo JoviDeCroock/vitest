@@ -16,6 +16,7 @@ import type {
   VitestRunnerImportSource,
   VitestRunner as VitestTestRunner,
 } from '../runner/types'
+import { pathToFileURL } from 'node:url'
 import { getState, GLOBAL_EXPECT, setState } from '@vitest/expect'
 import { processError } from '@vitest/utils/error'
 import { normalize } from 'pathe'
@@ -71,6 +72,10 @@ export class TestRunner implements VitestTestRunner {
         },
       },
       () => {
+        const bundled = this.workerState.ctx.bundledEntries?.[filepath]
+        if (bundled) {
+          return import(pathToFileURL(bundled).href)
+        }
         if (!this.viteModuleRunner) {
           filepath = `${filepath}?vitest=${Date.now()}`
         }

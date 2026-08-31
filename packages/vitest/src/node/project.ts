@@ -63,6 +63,7 @@ export class TestProject {
   /** @internal */ _resolver!: VitestResolver
   /** @internal */ _fetcher!: VitestFetchFunction
   /** @internal */ _serializedDefines?: string
+  /** @internal */ _bundledEntries?: Record<string, string>
   /** @internal */ _sharedViteServer = false
   /** @internal */ testFilesList: string[] | null = null
   /** @internal */ _browserReadySessions = new Set<string>()

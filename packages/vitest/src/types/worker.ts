@@ -26,6 +26,7 @@ export interface WorkerExecuteContext {
   providedContext: Record<string, any>
   invalidates?: string[]
   environment: ContextTestEnvironment
+  bundledEntries?: Record<string, string>
 
   /** Exposed to test runner as `VITEST_WORKER_ID`. Value is unique per each isolated worker. */
   workerId: number
@@ -50,6 +51,7 @@ export interface ContextRPC {
   files: FileSpecification[]
   providedContext: Record<string, any>
   invalidates?: string[]
+  bundledEntries?: Record<string, string>
 
   /** Exposed to test runner as `VITEST_WORKER_ID`. Value is unique per each isolated worker. */
   workerId: number
